@@ -1,0 +1,236 @@
+// "My main sounds"
+// @by Zony0
+
+samples('https://raw.githubusercontent.com/tidalcycles/Dirt-Samples/master/strudel.json')
+samples('https://raw.githubusercontent.com/switchangel/breaks/main/strudel.json')
+s("10_break.wav")
+
+
+setcpm(45)
+// all(x => x.glitch(rand))
+
+_$: "<[C^7@ -] [C@ -] [A7@ -] [D@ -] [G@ -]>*8".rootNotes(1).note().sound("saw")
+.add(note("12, 7, 0.5"))
+
+// n("1 6 2 5 1 6 3 6, 2 2 2 2 2 2 2 2, 0 0 4 0 0 0 4 0").sound("jazz")
+
+_$: sound("<[bd hh] [sd hh]>").gain("0.9 0.3")
+_$: sound("<[sd*8] [sd*4] [sd*4] [sd*6]>")
+  .bank("akaiLinn")
+  // .gain(slider(0.3, 0, 1, 0.1))
+  .gain(saw.segment(16).range(0.5, 0.2).slow(4))
+
+// drums1 
+_$: sound(`bd*1, - - misc -, - oh - oh, hh*2, [- - sd sd?]`)
+  .bank("RolandTR808")
+  .fast(1)
+  .compressor("-20:20:10:.002:.02")
+  // sound(`bd*4, - cp -, - - - oh, hh*3, [- sh]*3`).bank("AkaiLinn").fast(2/3)
+  .gain(slider(0.5, 0, 1, 0.1))
+  ._punchcard({height:90, width:1000, labels: 1 })
+// drums2 
+_$: s("bd lt [~ ht] mt cp ~ bd hh")
+  .bank("RolandTR707")
+  .jux(rev)
+  .fast(1)
+  .compressor("-20:20:10:.002:.02")
+  .coarse("<1!2 4!2 8!2 16!2>")
+  .gain(slider(0.3, 0, 1, 0.1))
+  ._punchcard({height:90, width:1000, labels: 1 })
+// drums3 
+_$: note("d1!4").s("sine")
+  .fast(slider(1.5, 0, 4, 0.5))
+  .penv(33)
+  .pdecay(.12)
+  .decay(.2)
+  .room(slider(2.3, 0.1, 3, 0.1))
+  .rsize(slider(6.7, 0.1, 8, 0.1))
+  .distort(slider(1.2, 0, 4, 0.1))
+  .lp(slider(58, 10, 150, 1)).lpq(slider(4, 0, 50, 1))
+  .gain(slider(1.1, 0, 4, 0.1))
+  ._punchcard({height:90, width:1000, labels: 1 })
+
+// drums4
+_$: n("<[0 3 [4 2] 4] [0 3 [4 2] 3]>")
+  .sound("jazz")
+  .room(slider(1.5, 0.1, 3, 0.1))
+  .rsize(slider(1.1, 0.1, 2, 0.1))
+  .gain(slider(0.2, 0, 1, 0.1))
+
+_$: sound("bd/4 rim/4")
+  .bank("RolandTR707")
+  .delay("1")  
+  .fast(1)
+  .gain(slider(0.4, 0, 1, 0.1))
+
+_$: s("hh*8")
+  .gain("[.6 1]*3")
+  .lpf(saw.range(200,4000))
+
+_$: sound(`
+[-  -  oh - ] [-  -   -  - ] [-  -  -  - ] [-  -  -  - ],
+[hh hh -  - ] [hh -  hh - ] [hh -  hh - ] [hh -  hh - ],
+[-  -  -  - ] [cp -  -  - ] [-  -  -  - ] [cp -  -  - ],
+[bd -  -  - ] [-  -  -  bd] [-  -  bd - ] [-  -  -  bd]
+ `)
+.gain(slider(0.3, 0, 0.7, 0.1))
+
+
+_$: n("<[1 1 1 3 5 5 5 3] [1 1 1 3 6 6 6 3]>")
+  .scale("<e:major e:minor>")
+  .transpose(-12)
+  .sound("supersaw")
+  // .cutoff(rand.range(300,1000))
+  .cutoff(slider(2680, 100, 6000, 10))
+  .delay(slider(0.1,0,2,0.1))
+  .room(slider(0.7,0,2,0.1))
+  .gain(slider(0.7, 0, 1, 0.1))
+  ._scope()._spectrum()
+
+_$: n("<[1 - - 1 - 3 5 3] [[1@ -] - 8 1 6 - 6 3]>")  
+ .sound("triangle")
+ .scale("<A:major A:minor>")
+ .transpose(-24)
+ .gain(slider(2, 0, 2, 0.1))
+
+_$: n("<[1 1 1 3 5 5 5 3] [1 1 1 3 6 6 6 3]>")
+  .scale("<A:major A:minor>")
+  .transpose(-12)
+  .sound("triangle")
+  .delay(slider(0.2,0,2,0.1))
+  .room(slider(0.7,0,2,0.1))
+  .gain(slider(0.6, 0, 1, 0.1))
+  ._scope()
+_$: "0 3 1 2, 0 4 2 5, 3 6 2 8, 5 10 4 8"
+  .chord("<C <Fm Db>>")
+  .clip("4 3 2 1")
+  .voicing()
+  .transpose(-12)
+  .fast(0.5)
+  .room(0.5)
+  .gain(slider(0.2, 0, 1, 0.1))
+
+_$: chord(`<
+C2 C5 C6 C7 C9 C11 C13 C69
+Cadd9 Co Ch Csus C^ C- C^7 
+C-7 C7sus Ch7 Co7 C^9 C^13 
+C^7#11 C^9#11 C^7#5 C-6 C-69 
+C-^7 C-^9 C-9 C-add9 C-11 
+C-7b5 Ch9 C-b6 C-#5 C7b9 
+C7#9 C7#11 C7b5 C7#5 C9#11 
+C9b5 C9#5 C7b13 C7#9#5 C7#9b5 
+C7#9#11 C7b9#11 C7b9b5 C7b9#5 
+C7b9#9 C7b9b13 C7alt C13#11 
+C13b9 C13#9 C7b9sus C7susadd3 
+C9sus C13sus C7b13sus C Caug 
+CM Cm CM7 Cm7 CM9 CM13 CM7#11 
+CM9#11 CM7#5 Cm6 Cm69 Cm^7 
+C-M7 Cm^9 C-M9 Cm9 Cmadd9 
+Cm11 Cm7b5 Cmb6 Cm#5
+>`)
+ .voicing()
+ .glide(0.3)
+ .room(.5)
+ ._pitchwheel()
+
+
+_$: s("space:2")
+  .loop(1)
+  // .loopBegin("<0 .125 .25>")
+  // .lp(slider(6580, 0, 10000, 10))
+  // .lp(rand.range(4000,8000))
+  .hp(rand.range(2000,5000))
+  .pan(brand)
+  .fast(slider(6.8, 1, 10, 0.1))
+  .gain(slider(0.2, 0, 1, 0.1))
+  ._scope()  ._spectrum({height:100, width:1000})
+
+
+
+
+// melody
+// $: note("c e g b, 76 83 65 59").sound("piano")
+// $: note("0 2 4 <[6,8] [7,9]>").scale("D:dorian").sound("piano")
+// $: note("a#2 d2 g#2 c2 d2 e2 f#2 d3").sound("gm_koto").gain(.5)
+// $: note("a#1 d1 g#1 c1 d1 e1 f#1 d2").s("gm_koto")//
+// $: note("c4 g3 f3 a3 d3 c3, e3 e3 e3 f3 f3 a3").s("gm_clarinet").gain(.2)
+_$: note("c4 e4 g4 b4").s("triangle").decay(0.5)
+_$: s("gm_koto*4").decay(0.5).n(irand(12)).scale('E minor').room(1).roomsize(10)
+.room(1)
+.roomsize(5)
+.delay("<0 .25 0.15 0.5>")
+.gain(slider(0.4, 0, 1, 0.1))
+._punchcard({height:100, width:1000, labels: 1 })
+_$: sound("bd hh sd hh bd hh sd hh, <[cr:1 - cp - - - cp - ]!3 [cr - [cr, cp] - cr - [cr, cp] - ]>, oh!16?, [- oh]!4")
+_$: s("rd:1!8, cr/4")
+
+// bass
+_$: s("sine").freq(slider(65, 50, 150, 1)).gain(slider(2.2, 0, 3, 0.1))
+_$: s("supersaw, square").seg(8).lpf(tri.range(100, 5000).slow(4)).tremolosync("16").tremoloskew(0.5).tremolodepth(2).jux(rev).orbit(2)
+  .acidenv(slider(0.315))
+  .gain(slider(1.1, 0, 3, 0.1))
+// $: note("<[e2 f2 g2 a2 e2 f2 a2 g2]!2 [e2 e2 g2 g2 e2 d2 d2 c2]!2>/2")
+_$: note("<[e2 e2 g2 g2 e2 e2 e2 g2]!2 [e2 e2 g2 e2 e2 d2 d2 c2]!2>/2")
+  .gain(slider(1.2, 0, 3, 0.1))
+  ._punchcard({height:100, width:1000, labels: 1 });
+
+// setcpm(35)
+_$: n(run(12)).scale("c:phrygian").s("sawtooth").delay(.7).orbit(2).fast(1)
+_$: s("bd:4!4").beat("0, 6, 10, 14?",16).duckorbit(2).duckattack(0.2).duckdepth(0.8)
+_$: s("hh:3!16").gain(0.6).pan(rand).delay(1)
+_$: s("- sd:0").gain(0.6).room(1.5).roomsize(4)
+
+// chords 
+_$: note("<[c3,g3,e4] [bb2,f3,d4] [a2,f3,c4] [bb2,g3,eb4]>")
+  .sound("sawtooth")
+  .trans(12)
+  .glide(0.4)
+  .vowel("<a o i o>")
+  .gain(slider(1.2, 0, 3, 0.1))
+._punchcard({height:100, width:1000, labels: 1 })
+
+
+// guitar
+_$: note("36 43, 52 59 62 64").sound('gm_electric_guitar_muted')
+  .fast(slider(1, 0, 2, 0.5))
+  .room(1.5)
+  .roomsize(5)
+  .gain(slider(1.2, 1, 2, 0.1))
+  ._punchcard({height:100, width:1000, labels: 1 });
+
+
+_$: note("[~ [<[e3,a3,b3]!4 [e3,a3,c4]!4 [e3,a3,e4]!4 [a3,a2,c4]!4> ~]]*2").sound("gm_electric_guitar_muted")
+  .delay(.5)
+  .gain(slider(1.4, 0, 2, 0.1))
+
+
+// saw1
+_$: 
+note("[e3 e3 c3 c3]/4, [b3@1 a3@2 g3@1]/4")
+// note("[e3 e3 c3 c3]/4, [b3 a3]/4")
+  .sound('gm_reed_organ')
+  .fast(1)
+  .add(note("0,-12"))
+  .gain(slider(0.4, 0, 2, 0.1))
+  ._punchcard({height:100, width:1000, labels: 1 })._scope()
+// saw2
+_$: note("e3 b3 e3 b3")
+  .sound('sawtooth')
+  .add(note("0,.1"))
+  .add(note("0,.06"))
+  .pan(rand)
+  // .delay(rand)
+  .lpf("440 700")
+  .gain(slider(0.5, 0, 2, 0.1))
+  .adsr(".1:.1:.25:.2")
+  ._punchcard({ labels: 1 }) 
+  .scope()
+
+
+  
+  ._spectrum({height:100, width:1000});
+
+// stack(drums1, drums2, drums3, melody, chords, bass, guitar, saw1, saw2)
+// ._scope({height:100, width:1000})._spectrum();
+
+
