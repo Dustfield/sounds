@@ -1,0 +1,87 @@
+// "March 2026"
+// @by Zony0
+
+setcpm(40)
+
+//SYNTH
+_$: note("e3 b3 e3 b3").sound("gm_synth_strings_1")
+  .fast(1)
+  // .add(note("0,.1"))
+  // .add(note("0,.06"))
+  .trans("<0 0 0 0 0 3 7 -2>")
+  .pan(rand)
+  .delay(rand)
+  .lpf("640 850 1200 1400")
+  .gain(slider(0.8, 0, 2, 0.1))
+  // .adsr(".4:.3:.3:.8")
+  .attack(slider(0, 0, 1, 0.1))
+  .decay(slider(0.1, 0, 1, 0.1))
+  .sustain(slider(0.6, 0, 1, 0.1))
+  .release(slider(0.3, 0, 1, 0.1))
+
+//CHORDS
+_$: chord("<E2 E5 C6 C69 Esus E2 E5 C6 >/1")
+ .voicing()
+ .trans("<0 0 -5 -5 0 0 0 -5 -5>/8")
+ .glide(0.3)
+ .attack(slider(0.1, 0, 0.5, 0.1))
+ .gain(slider(0.5, 0, 1, 0.1))
+ .diode(slider(0.7, 0, 2, 0.1))
+ .room(.5)
+ // ._pitchwheel()
+
+//KOTO
+_$: s("gm_koto*4").decay(0.5).n(irand(12)).scale('E minor')
+.room(1).roomsize(10)
+.orbit(2)
+.fast(slider(2, 1, 4, 1))
+.delay("<0 .25 0.15 0.5>")
+.gain(slider(0.5, 0, 1, 0.1))
+
+//DRUMS
+_$: sound("[bd/4 rim/4]")
+  .bank("RolandTR707")
+  .delay("1")  
+  .duck(2).duckdepth(0.7)
+  .gain(slider(0.5, 0, 1, 0.1))
+
+_$: s("rd:1!8, cr/4").gain(0.5)
+  .cutoff(rand.range(1000,10000))
+  .pan(rand)
+
+_$: sound("<[sd*8] [sd*4] [sd*4] [sd*6]>")
+  .bank("akaiLinn")
+  // .gain(slider(0.3, 0, 1, 0.1))
+  .gain(tri.segment(8).range(0.5, 0.1).slow(8))
+
+$: sound("bd:2!4")
+  .gain(slider(0.4, 0, 1, 0.1))
+
+
+//BASS
+_$: s("supersaw, square").seg(4*2)
+  .note("e1")
+  // .note("<e2 c2 b1 d2 a1 a1 a1 a2>")
+  // .lpf(tri.range(100, 5000))
+  .tremolosync("16").tremoloskew(0.5).tremolodepth(2).jux(rev)
+  .acidenv(slider(0.521))
+  .gain(slider(0.7, 0, 3, 0.1))
+// $: note("<[e2 f2 g2 a2 e2 f2 a2 g2]!2 [e2 e2 g2 g2 e2 d2 d2 c2]!2>/2")
+
+_$: note("<[c3,g3,e4] [bb2,f3,d4] [a2,f3,c4] [bb2,g3,eb4]>/2")
+  .sound("supersaw")
+  .trans(-12)
+  .glide(0.4)
+  // .vowel("<a o i o>")
+  .gain(slider(0.8, 0, 3, 0.1))
+
+//FX
+_$: s("[space:2 - space:1 -]/8")
+  .loop(1)
+  .loopBegin("<0 .125 .25 0.125>")
+  .lp(slider(2550, 0, 10000, 10))
+  // .lp(rand.range(4000,8000))
+  .hp(rand.range(2000,5000))
+  .delay("1")  
+  .fast(slider(1, 1, 10, 0.1))
+  .gain(slider(0.3, 0, 1, 0.1))
